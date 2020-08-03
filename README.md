@@ -4,7 +4,7 @@
 
 ## Beginning 🚀
 
-_Here are the instruction to run the proyect._
+_Here are the instruction to run the project._
 
 
 ### Pre-requeriments 📋
