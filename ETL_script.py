@@ -20,10 +20,22 @@ import difflib
 import pytz
 
 #=======================================================================================================
+# String connections
+#=======================================================================================================
+
+#Remember to change the user y password of yours
+user_postgres = 'postgres'
+pass_postgres = 'applaudo'
+user_sql_server = 'xxxxx'
+pass_sql_server = 'XXXXXXXX'
+postgresql_conn = 'postgresql://'+user_postgres+':'+ pass_postgres +'@localhost:5432/applaudo_test'
+sql_server_conn = 'mssql://'+user_sql_server+':'+pass_sql_server+'@orderservers.database.windows.net/orderdb?driver=SQL+Server+Native+Client+11.0?trusted_connection=yes'
+
+#=======================================================================================================
 # Database Connection
 #=======================================================================================================
 print(f'{datetime.now()} - Connecting to postgresql database')
-engine = create_engine('postgresql://postgres:applaudo@localhost:5432/applaudo_test')
+engine = create_engine(postgresql_conn)
 
 #=======================================================================================================
 # Truncating staging data
@@ -168,7 +180,7 @@ for blob in blob_list:
 #=======================================================================================================
 #"""DB DATA"""
 print(f'{datetime.now()} - Reading from SQL Server to read [order_details] and migrating to postgresql')
-engine_mssql = create_engine('mssql://etlguest:Etltest_2020@orderservers.database.windows.net/orderdb?driver=SQL+Server+Native+Client+11.0?trusted_connection=yes')
+engine_mssql = create_engine(sql_server_conn)
 table_df = pd.read_sql_table("order_details",con=engine_mssql)
 
 print(f'{datetime.now()} - Converting the order_details to rows and columns')
